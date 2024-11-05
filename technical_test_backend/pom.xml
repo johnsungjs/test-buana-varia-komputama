@@ -9,10 +9,10 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.buana</groupId>
-	<artifactId>technical_test</artifactId>
+	<artifactId>technical_test_backend</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>technical_test</name>
-	<description>Backend Service for Technical Test PT Buana Varia Komputama</description>
+	<name>technical_test_backend</name>
+	<description>Backend Service for Technical Test on PT Buana Varia Komputama</description>
 	<url/>
 	<licenses>
 		<license/>

@@ -1,35 +1,64 @@
-./technical_test/HELP.md
-./technical_test/target/
-./technical_test/!.mvn/wrapper/maven-wrapper.jar
-./technical_test/!**/src/main/**/target/
-./technical_test/!**/src/test/**/target/
+### FOR FRONTEND ###
+# Logs
+./technical_test_frontend/logs
+*.log
+./technical_test_frontend/npm-debug.log*
+./technical_test_frontend/yarn-debug.log*
+./technical_test_frontend/yarn-error.log*
+./technical_test_frontend/pnpm-debug.log*
+./technical_test_frontend/lerna-debug.log*
+
+./technical_test_frontend/node_modules
+./technical_test_frontend/dist
+./technical_test_frontend/dist-ssr
+*.local
+
+# Editor directories and files
+.vscode/*
+!.vscode/extensions.json
+.idea
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+
+### FOR BACKEND ###
+./technical_test_backend/HELP.md
+./technical_test_backend/target/
+./technical_test_backend/!.mvn/wrapper/maven-wrapper.jar
+./technical_test_backend/!**/src/main/**/target/
+./technical_test_backend/!**/src/test/**/target/
 
 ### STS ###
-./technical_test/.apt_generated
-./technical_test/.classpath
-./technical_test/.factorypath
-./technical_test/.project
-./technical_test/.settings
-./technical_test/.springBeans
-./technical_test/.sts4-cache
+./technical_test_backend/.apt_generated
+./technical_test_backend/.classpath
+./technical_test_backend/.factorypath
+./technical_test_backend/.project
+./technical_test_backend/.settings
+./technical_test_backend/.springBeans
+./technical_test_backend/.sts4-cache
 
 ### IntelliJ IDEA ###
-./technical_test.idea
-./technical_test*.iws
-./technical_test*.iml
-./technical_test*.ipr
+./technical_test_backend.idea
+./technical_test_backend*.iws
+./technical_test_backend*.iml
+./technical_test_backend*.ipr
 
 ### NetBeans ###
-./technical_test/nbproject/private/
-./technical_test/nbbuild/
-./technical_test/dist/
-./technical_test/nbdist/
-./technical_test/.nb-gradle/
-./technical_testbuild/
-./technical_test!**/src/main/**/build/
-./technical_test!**/src/test/**/build/
+./technical_test_backend/nbproject/private/
+./technical_test_backend/nbbuild/
+./technical_test_backend/dist/
+./technical_test_backend/nbdist/
+./technical_test_backend/.nb-gradle/
+./technical_test_backendbuild/
+./technical_test_backend!**/src/main/**/build/
+./technical_test_backend!**/src/test/**/build/
 
 ### VS Code ###
 .vscode/
 
-
+### log ###
+*.log

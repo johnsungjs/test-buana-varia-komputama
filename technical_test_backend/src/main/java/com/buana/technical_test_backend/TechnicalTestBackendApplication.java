@@ -1,13 +1,13 @@
-package com.buana.technical_test;
+package com.buana.technical_test_backend;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class TechnicalTestApplication {
+public class TechnicalTestBackendApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(TechnicalTestApplication.class, args);
+		SpringApplication.run(TechnicalTestBackendApplication.class, args);
 	}
 
 }
