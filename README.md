@@ -1,7 +1,6 @@
 Scenario:
-You are a software developer at a company building an organization management app. The app should allow users to manage
-organization members and their details, as well as handle item transactions for internal use. The application will require both
-frontend and backend development tasks.
+You are a software developer at a company building an organization management app. The app should allow users to manage organization members and their details, as well as handle item transactions for internal use. The application will require both frontend and backend development tasks.
+
 Tasks:
 Frontend
  Login/Register Page:
@@ -21,7 +20,9 @@ Frontend
  (Optional) Create Organization Chart from Data:
 • Visualize the organizational hierarchy in a chart format.
 • Use a library such as D3.js or Google Charts for visualization.
-•
+
+
+
 Backend
 Create appropriate endpoints to fulfill frontend needs
 Optional Tasks
