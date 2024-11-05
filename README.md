@@ -3,8 +3,12 @@ You are a software developer at a company building an organization management ap
 
 Tasks:
 
+
+
 Frontend
+
  Login/Register Page:
+ 
 • Create a user-friendly login and registration page.
 
 • Validate user inputs and provide appropriate error messages.
@@ -34,11 +38,13 @@ Frontend
 
 
 
+
 Backend
 Create appropriate endpoints to fulfill frontend needs
 
 Optional Tasks
 Use Spring Cloud Security:
+
 • Integrate Spring Cloud Security for authentication and authorization.
 
 • Implement security best practices to protect API endpoints.
@@ -47,20 +53,25 @@ Use Spring Cloud Security:
 
 Requirements:
  Frontend Proficiency:
+ 
 • Demonstrate knowledge of frontend technologies (HTML, CSS, JavaScript, React/Vue/Angular).
+
 • Create responsive and user-friendly interfaces.
 
  Backend Proficiency:
+ 
 • Demonstrate knowledge of backend technologies (Python/Java, Flask/Django/Spring Boot).
 
 • Develop efficient and secure API services.
 
  API Development:
+ 
 • Create RESTful APIs following best practices.
 
 • Implement error handling and input validation.
 
  Database Interaction:
+ 
 • Use relational or NoSQL databases for data storage.
 
 • Write efficient queries for data retrieval and manipulation.
