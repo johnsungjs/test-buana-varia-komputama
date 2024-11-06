@@ -1,0 +1,22 @@
+spring:
+  application:
+    name: technical_test_backend
+  data:
+    mongodb:
+      uri: mongodb://localhost:27017/buana?replicaSet=rs0
+
+server:
+  port: 8080
+
+logging:
+  level:
+    root: ERROR
+    org.springframework.web: INFO
+    com.buana.technical_test_backend: INFO
+  file:
+    name:
+
+springdoc:
+  swagger-ui:
+    disable-swagger-default-url: true
+    path: /
