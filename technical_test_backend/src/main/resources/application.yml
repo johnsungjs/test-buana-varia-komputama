@@ -3,7 +3,9 @@ spring:
     name: technical_test_backend
   data:
     mongodb:
-      uri: mongodb://localhost:27017/buana?replicaSet=rs0
+      host: localhost
+      port: 27017
+      database: buana
 
 server:
   port: 8080
