@@ -1,6 +1,6 @@
 import useGoogleAuth from "../custom-hooks/useGoogleAuth";
 
-export default function LoginPage() {
+export default function RegisterPage() {
   const auth = useGoogleAuth();
 
   const handleLogin = () => {
@@ -14,7 +14,7 @@ export default function LoginPage() {
           {/* left side */}
           <div className="flex flex-col justify-center p-8 md:p-14">
             <span className="mb-3 text-4xl text-orangeMega font-bold">
-              Welcome to Our App
+              Please Register
             </span>
             {!auth.profile && (
               <span className="font-light text-gray-400 mb-8">
