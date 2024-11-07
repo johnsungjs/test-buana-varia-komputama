@@ -1,7 +1,10 @@
+import { useNavigate } from "react-router-dom";
 import useGoogleAuth from "../custom-hooks/useGoogleAuth";
+
 
 export default function LoginPage() {
   const auth = useGoogleAuth();
+  const navigation = useNavigate();
 
   const handleLogin = () => {
     auth.login();
@@ -13,7 +16,7 @@ export default function LoginPage() {
         <div className=" relative flex flex-col m-6 space-y-8 bg-white shadow-2xl rounded-2xl md:flex-row md:space-y-0">
           {/* left side */}
           <div className="flex flex-col justify-center p-8 md:p-14">
-            <span className="mb-3 text-4xl text-orangeMega font-bold">
+            <span className="mb-3 text-4xl text-primary font-bold">
               Welcome to Our App
             </span>
             {!auth.profile && (
@@ -23,10 +26,16 @@ export default function LoginPage() {
             )}
             {auth.profile ? (
               <>
-                <div>Name: </div>
-                <div>{auth.profile.name}</div>
-                <div>email</div>
-                <div>{auth.profile.email}</div>
+                <div className="text-2xl text-slate-700 font-bold">Hello, </div>
+                <div className="text-xl text-primary font-bold">
+                  {auth.profile.name}
+                </div>
+                <button
+                  onClick={() => navigation("/member")}
+                  className="mt-8 rounded-md py-2 bg-primary text-white font-bold hover:opacity-75"
+                >
+                  View All Member
+                </button>
               </>
             ) : (
               <>
@@ -54,7 +63,6 @@ export default function LoginPage() {
             </div> */}
           </div>
           {/* left side ends here*/}
-
           {/* right side */}
           <div className="relative">
             <img
