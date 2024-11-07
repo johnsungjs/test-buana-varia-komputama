@@ -127,7 +127,7 @@ const Sidenav = ({ children }: SidenavProps) => {
                   <div className="profile_name">
                     {userData.name ? userData.name.toUpperCase() : "noname"}
                   </div>
-                  <div className="job">@johnsungjs</div>
+                  <div className="job">app by @johnsungjs</div>
                 </div>
                 <button
                   onClick={() => {
