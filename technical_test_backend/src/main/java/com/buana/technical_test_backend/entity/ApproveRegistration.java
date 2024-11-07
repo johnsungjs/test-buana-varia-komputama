@@ -16,13 +16,18 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class ApproveRegistration {
 
+    // APPROVAL STATUS
+    //0 -> Unhandled 
+    //1 -> Approved 
+    //2 -> Rejected
+    
     @Id
     private String id;
     private MemberRequest dataMember;
-    private Boolean isApprove;
+    private int approvalStatus;
     private String notes = "";
 
-    public ApproveRegistration generateApproveRegistrationFromRequest(ApproveRegistrationRequest request){
-        return new ApproveRegistration(null, request.getDataMember(), request.getIsApprove(), request.getNotes());
+    public ApproveRegistration generateApproveRegistrationFromRequest(ApproveRegistrationRequest request) {
+        return new ApproveRegistration(null, request.getDataMember(), 0, request.getNotes());
     }
 }

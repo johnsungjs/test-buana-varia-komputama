@@ -3,9 +3,9 @@ package com.buana.technical_test_backend.dto.request;
 import lombok.Data;
 
 @Data
-public class ApproveRegistrationRequest {
+public class HandleApproveRegistrationRequest {
 
-    private MemberRequest dataMember;
+    private String id;
     private String notes = "";
 
 }

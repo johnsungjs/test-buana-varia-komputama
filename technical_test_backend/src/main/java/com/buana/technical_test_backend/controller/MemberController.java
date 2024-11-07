@@ -1,5 +1,6 @@
 package com.buana.technical_test_backend.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,8 +17,12 @@ import org.springframework.web.bind.annotation.RestController;
 import com.buana.technical_test_backend.component.ResponseGenerator;
 import com.buana.technical_test_backend.dto.request.MemberRequest;
 import com.buana.technical_test_backend.dto.response.ApiResponse;
+import com.buana.technical_test_backend.dto.response.MemberDetailResponse;
+import com.buana.technical_test_backend.dto.response.MemberResponse;
 import com.buana.technical_test_backend.entity.Member;
+import com.buana.technical_test_backend.entity.Position;
 import com.buana.technical_test_backend.repository.MemberRepository;
+import com.buana.technical_test_backend.repository.PositionRepository;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -32,19 +37,41 @@ public class MemberController {
     @Autowired
     private MemberRepository repository;
 
+    @Autowired
+    private PositionRepository positionRepository;
+
     @GetMapping("/find-all")
     public ResponseEntity<ApiResponse> findAll() {
         try {
             log.info("Find All Member");
             List<Member> data = repository.findAll();
-            return rg.success(data, "00", "Success Get All Member Data");
+            List<MemberResponse> result = new ArrayList<>();
+
+            data.forEach(e -> {
+                Position position = positionRepository.findOneById(e.getPositionId());
+                String positionName = "No Position";
+                if (position != null) {
+                    positionName = position.getName();
+                }
+
+                String superiorName = "";
+                Member superiorMember = repository.findOneByCredential(e.getReportsTo());
+
+                if (superiorMember != null) {
+                    superiorName = superiorMember.getName();
+                }
+
+                result.add(new MemberResponse(e.getCredential(), e.getName(), positionName, superiorName));
+            });
+
+            return rg.success(result, "00", "Success Get All Member Data");
         } catch (Exception e) {
             log.info("Error: " + e.getMessage());
             return rg.internalError("99", e.getMessage());
         }
     }
 
-    @GetMapping("/find-one")
+    @GetMapping("/find-one-by-credential")
     public ResponseEntity<ApiResponse> findOne(@RequestParam String credential) {
         try {
             log.info("Find One Member");
@@ -53,7 +80,20 @@ public class MemberController {
                 String respMessage = "Tidak Ada Member Dengan Credential " + credential;
                 return rg.success(null, "00", respMessage);
             }
-            return rg.success(data, "00", "Success Get One Member By Credential");
+            String positionName = "No position";
+            Position position = positionRepository.findOneById(data.getPositionId());
+            if (position != null) {
+                positionName = position.getName();
+            }
+
+            String superiorName = "No Superior";
+            Member superior = repository.findOneByCredential(data.getReportsTo());
+            if (superior != null) {
+                superiorName = superior.getName();
+            }
+
+            MemberDetailResponse result = new MemberDetailResponse(data.getCredential(), data.getName(), positionName, superiorName);
+            return rg.success(result, "00", "Success Get One Member By Credential");
         } catch (Exception e) {
             log.info("Error: " + e.getMessage());
             return rg.internalError("99", e.getMessage());
@@ -79,7 +119,7 @@ public class MemberController {
         }
     }
 
-    @PatchMapping("/update-one")
+    @PatchMapping("/update-one-by-credential")
     public ResponseEntity<ApiResponse> updateOne(@RequestBody MemberRequest request) {
         try {
             log.info("Update One Member");
@@ -92,7 +132,7 @@ public class MemberController {
             existing.setCredential(request.getCredential());
             existing.setName(request.getName());
             existing.setPositionId(request.getPositionId());
-            existing.setReportTo(request.getReportTo());
+            existing.setReportsTo(request.getReportsTo());
             existing.setSubordinate(request.getSubordinate());
 
             repository.save(existing);

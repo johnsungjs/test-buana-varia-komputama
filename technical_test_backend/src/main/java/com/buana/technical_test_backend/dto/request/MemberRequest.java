@@ -9,6 +9,6 @@ public class MemberRequest {
   private String credential;
   private String name;
   private String positionId;
-  private String reportTo;
+  private String reportsTo;
   private List<String> subordinate;
 }

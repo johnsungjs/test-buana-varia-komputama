@@ -1,17 +1,10 @@
-package com.buana.technical_test_backend.controller;
+package com.buana.technical_test_backend.service;
 
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PatchMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.stereotype.Service;
 
 import com.buana.technical_test_backend.component.ResponseGenerator;
 import com.buana.technical_test_backend.dto.request.ApproveRegistrationRequest;
@@ -19,14 +12,13 @@ import com.buana.technical_test_backend.dto.request.HandleApproveRegistrationReq
 import com.buana.technical_test_backend.dto.response.ApiResponse;
 import com.buana.technical_test_backend.entity.ApproveRegistration;
 import com.buana.technical_test_backend.repository.ApproveRegistrationRepository;
-import com.buana.technical_test_backend.service.ApproveRegistrationService;
+import com.buana.technical_test_backend.repository.MemberRepository;
 
 import lombok.extern.slf4j.Slf4j;
 
-@RestController
-@RequestMapping("/api/approve-registration")
+@Service
 @Slf4j
-public class ApproveRegistrationController {
+public class ApproveRegistrationService {
 
     @Autowired
     private ResponseGenerator rg;
@@ -35,9 +27,8 @@ public class ApproveRegistrationController {
     private ApproveRegistrationRepository repository;
 
     @Autowired
-    private ApproveRegistrationService service;
+    private MemberRepository memberRepository;
 
-    @GetMapping("/find-all")
     public ResponseEntity<ApiResponse> findAll() {
         try {
             log.info("Find All approve registration");
@@ -49,8 +40,7 @@ public class ApproveRegistrationController {
         }
     }
 
-    @GetMapping("/find-one")
-    public ResponseEntity<ApiResponse> findOne(@RequestParam String id) {
+    public ResponseEntity<ApiResponse> findOne(String id) {
         try {
             log.info("Find One Member");
             ApproveRegistration data = repository.findOneById(id);
@@ -65,8 +55,7 @@ public class ApproveRegistrationController {
         }
     }
 
-    @PostMapping("/add-one")
-    public ResponseEntity<ApiResponse> addOne(@RequestBody ApproveRegistrationRequest request) {
+    public ResponseEntity<ApiResponse> addOne(ApproveRegistrationRequest request) {
         try {
             log.info("Add One Approve Registration");
             log.info("debug request: " + request.toString());
@@ -81,8 +70,7 @@ public class ApproveRegistrationController {
         }
     }
 
-    @PatchMapping("/update-one")
-    public ResponseEntity<ApiResponse> updateOne(@RequestBody ApproveRegistration request) {
+    public ResponseEntity<ApiResponse> updateOne(ApproveRegistration request) {
         try {
             log.info("Update One Approve Registration");
             ApproveRegistration existing = repository.findOneById(request.getId());
@@ -99,8 +87,7 @@ public class ApproveRegistrationController {
         }
     }
 
-    @DeleteMapping("/delete-by-id")
-    public ResponseEntity<ApiResponse> deleteById(@RequestParam String id) {
+    public ResponseEntity<ApiResponse> deleteById(String id) {
         try {
             log.info("Delete One Approve Registration");
             ApproveRegistration data = repository.findOneById(id);
@@ -116,55 +103,63 @@ public class ApproveRegistrationController {
         }
     }
 
-    @PostMapping("/create-registration-member")
-    public ResponseEntity<ApiResponse> makeRegisterMember(@RequestBody ApproveRegistrationRequest request) {
-        return service.addOne(request);
-    }
-
-    @PostMapping("approve-register-member")
-    public ResponseEntity<ApiResponse> approveRegisterMember(@RequestBody HandleApproveRegistrationRequest request) {
-        return service.accept(request);
-    }
-
-    @PostMapping("reject-register-member")
-    public ResponseEntity<ApiResponse> rejectRegisterMember(@RequestBody HandleApproveRegistrationRequest request) {
-        return service.reject(request);
-    }
-
-    @GetMapping("/find-all-unhandled")
-    public ResponseEntity<ApiResponse> findAllUnhandled() {
+    public ResponseEntity<ApiResponse> accept(HandleApproveRegistrationRequest request) {
         try {
-            log.info("Find All unhandled registration");
-            List<ApproveRegistration> data = repository.findByApprovalStatus(0);
-            return rg.success(data, "00", "Success Get All Approved Registration");
+            ApproveRegistration existing = repository.findOneById(request.getId());
+
+            if (existing == null) {
+                return rg.internalError("01", "No Approve Request With ID " + request.getId());
+            }
+
+            existing.setApprovalStatus(1);
+            existing.setNotes(request.getNotes());
+            repository.save(existing);
+
+            return rg.success(null, "00", "Success Approve One Member Registration ");
+
         } catch (Exception e) {
             log.info("Error: " + e.getMessage());
             return rg.internalError("99", e.getMessage());
         }
     }
 
-    @GetMapping("/find-all-approved")
-    public ResponseEntity<ApiResponse> findAllApproved() {
+    public ResponseEntity<ApiResponse> reject(HandleApproveRegistrationRequest request) {
         try {
-            log.info("Find All approve registration");
-            List<ApproveRegistration> data = repository.findByApprovalStatus(1);
-            return rg.success(data, "00", "Success Get All Approved Registration");
+            ApproveRegistration existing = repository.findOneById(request.getId());
+
+            if (existing == null) {
+                return rg.internalError("01", "No Approve Request With ID " + request.getId());
+            }
+
+            existing.setApprovalStatus(2);
+            existing.setNotes(request.getNotes());
+            repository.save(existing);
+
+            return rg.success(null, "00", "Success Approve One Member Registration ");
+
         } catch (Exception e) {
             log.info("Error: " + e.getMessage());
             return rg.internalError("99", e.getMessage());
         }
     }
 
-    @GetMapping("/find-all-rejected")
-    public ResponseEntity<ApiResponse> findAllRejected() {
+    public ResponseEntity<ApiResponse> resetStatus(HandleApproveRegistrationRequest request) {
         try {
-            log.info("Find All approve registration");
-            List<ApproveRegistration> data = repository.findByApprovalStatus(2);
-            return rg.success(data, "00", "Success Get All Rejected Registration");
+            ApproveRegistration existing = repository.findOneById(request.getId());
+
+            if (existing == null) {
+                return rg.internalError("01", "No Approve Request With ID " + request.getId());
+            }
+
+            existing.setApprovalStatus(0);
+            existing.setNotes(request.getNotes());
+            repository.save(existing);
+
+            return rg.success(null, "00", "Success Approve One Member Registration ");
+
         } catch (Exception e) {
             log.info("Error: " + e.getMessage());
             return rg.internalError("99", e.getMessage());
         }
     }
-
 }

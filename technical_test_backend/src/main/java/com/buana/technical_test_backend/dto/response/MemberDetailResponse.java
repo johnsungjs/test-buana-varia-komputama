@@ -7,9 +7,10 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class MemberResponse {
-  private String credential;
-  private String name;
-  private String positionName;
-  private String reportsTo;
+public class MemberDetailResponse {
+
+    private String credential;
+    private String name;
+    private String positionName;
+    private String reportsTo;
 }

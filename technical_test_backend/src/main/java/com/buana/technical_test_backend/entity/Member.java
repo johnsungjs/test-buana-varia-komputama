@@ -22,10 +22,10 @@ public class Member {
     private String credential;
     private String name;
     private String positionId;
-    private String reportTo;
+    private String reportsTo;
     private List<String> subordinate;
 
     public Member generateMemberFromMemberRequest(MemberRequest request) {
-        return new Member(null, request.getCredential(), request.getName(), request.getPositionId(), request.getReportTo(), request.getSubordinate());
+        return new Member(null, request.getCredential(), request.getName(), request.getPositionId(), request.getReportsTo(), request.getSubordinate());
     }
 }
