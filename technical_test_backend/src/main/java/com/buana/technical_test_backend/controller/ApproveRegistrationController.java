@@ -131,6 +131,11 @@ public class ApproveRegistrationController {
         return service.reject(request);
     }
 
+    @PostMapping("reset-status-register-member")
+    public ResponseEntity<ApiResponse> resetStatusRegisterMember(@RequestBody HandleApproveRegistrationRequest request) {
+        return service.resetStatus(request);
+    }
+
     @GetMapping("/find-all-unhandled")
     public ResponseEntity<ApiResponse> findAllUnhandled() {
         try {

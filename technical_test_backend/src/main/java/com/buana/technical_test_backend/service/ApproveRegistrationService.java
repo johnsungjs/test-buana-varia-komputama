@@ -11,6 +11,7 @@ import com.buana.technical_test_backend.dto.request.ApproveRegistrationRequest;
 import com.buana.technical_test_backend.dto.request.HandleApproveRegistrationRequest;
 import com.buana.technical_test_backend.dto.response.ApiResponse;
 import com.buana.technical_test_backend.entity.ApproveRegistration;
+import com.buana.technical_test_backend.entity.Member;
 import com.buana.technical_test_backend.repository.ApproveRegistrationRepository;
 import com.buana.technical_test_backend.repository.MemberRepository;
 
@@ -114,6 +115,9 @@ public class ApproveRegistrationService {
             existing.setApprovalStatus(1);
             existing.setNotes(request.getNotes());
             repository.save(existing);
+
+            Member memberToSave = new Member().generateMemberFromMemberRequest(existing.getDataMember());
+            memberRepository.save(memberToSave);
 
             return rg.success(null, "00", "Success Approve One Member Registration ");
 
