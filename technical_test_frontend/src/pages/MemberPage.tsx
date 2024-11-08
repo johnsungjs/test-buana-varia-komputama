@@ -1,5 +1,6 @@
 import { useState } from "react";
 import TableMember from "../components/TableMember";
+import { useNavigate } from "react-router-dom";
 
 const dataDummy = [
   {
@@ -29,6 +30,7 @@ const dataDummy = [
 ];
 
 export default function MemberPage() {
+  const navigation = useNavigate();
   const [searchInput, setSearchInput] = useState<string>("");
 
   const filteredData = dataDummy.filter((e) =>
@@ -45,7 +47,12 @@ export default function MemberPage() {
             value={searchInput}
             onChange={(e) => setSearchInput(e.target.value)}
           />
-          <button className="bg-primary px-4 py-1 rounded-md text-white">+ New Member</button>
+          <button
+            className="bg-primary px-4 py-1 rounded-md text-white"
+            onClick={() => navigation("/member/add")}
+          >
+            + New Member
+          </button>
         </div>
         <TableMember data={filteredData} />
       </div>

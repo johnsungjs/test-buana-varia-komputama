@@ -13,6 +13,7 @@ import HandleRegistration from "../pages/HandleRegistration";
 import RejectedRegistration from "../pages/RejectedRegistration";
 import PrivateRoutes from "./PrivateRouteConfig";
 import AuthLayout from "../layout/AuthLayout";
+import AddMemberPage from "../pages/AddMemberPage";
 
 export const sideNavRoutes = [
   {
@@ -50,6 +51,7 @@ export const routerConfig = createBrowserRouter(
           <Route path="/member" element={<MemberPage />} />
           <Route path="/member/:credential" element={<MemberDetailPage />} />
           <Route path="/manage-registration" element={<HandleRegistration />} />
+          <Route path="/member/add" element={<AddMemberPage />} />
           <Route
             path="/rejected-registration"
             element={<RejectedRegistration />}
