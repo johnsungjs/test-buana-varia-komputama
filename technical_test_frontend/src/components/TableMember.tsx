@@ -107,7 +107,7 @@ function EnhancedTableHead(props: EnhancedTableProps) {
         {headCells.map((headCell) => (
           <TableCell
             key={headCell.id}
-            align={headCell.numeric ? 'right' : 'left'}
+            align={headCell.numeric ? 'left' : 'left'}
             padding={headCell.disablePadding ? 'none' : 'normal'}
             sortDirection={orderBy === headCell.id ? order : false}
           >
@@ -186,7 +186,7 @@ export default function TableMember() {
       <Paper sx={{ width: '100%', mb: 2 }}>
         <TableContainer>
           <Table
-            sx={{ minWidth: 450 }}
+            sx={{ minWidth: 250 }}
             aria-labelledby="tableTitle"
             size={ 'medium'}
           >
@@ -224,7 +224,7 @@ export default function TableMember() {
                     >
                       {row.name}
                     </TableCell>
-                    <TableCell align="right">Test</TableCell>
+                    <TableCell align="left">{row.position}</TableCell>
                   </TableRow>
                 );
               })}
