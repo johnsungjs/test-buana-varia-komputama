@@ -6,7 +6,6 @@ import {
 } from "react-router-dom";
 import Page404 from "../pages/Page404";
 import LoginPage from "../pages/LoginPage";
-import RegisterPage from "../pages/RegisterPage";
 import MemberPage from "../pages/MemberPage";
 import MemberDetailPage from "../pages/MemberDetailPage";
 import { CheckBox, Close, People } from "@mui/icons-material";
@@ -45,12 +44,11 @@ export const routerConfig = createBrowserRouter(
       <Route path="*" element={<Page404 />} />
       <Route path="/" element={<Navigate to={"/login"} />} />
       <Route path="/login" element={<LoginPage />} />
-      <Route path="/register" element={<RegisterPage />} />
 
       <Route element={<PrivateRoutes />}>
         <Route element={<AuthLayout />}>
           <Route path="/member" element={<MemberPage />} />
-          <Route path="/member-detail" element={<MemberDetailPage />} />
+          <Route path="/member/:credential" element={<MemberDetailPage />} />
           <Route path="/manage-registration" element={<HandleRegistration />} />
           <Route
             path="/rejected-registration"

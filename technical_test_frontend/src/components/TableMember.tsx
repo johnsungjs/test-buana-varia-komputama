@@ -12,48 +12,27 @@ import TableSortLabel from '@mui/material/TableSortLabel';
 import Paper from '@mui/material/Paper';
 
 import { visuallyHidden } from '@mui/utils';
+import { useNavigate } from 'react-router-dom';
 
 interface Data {
-  id: number;
-  calories: number;
-  carbs: number;
-  fat: number;
   name: string;
-  protein: number;
+  position: string;
 }
 
-function createData(
-  id: number,
-  name: string,
-  calories: number,
-  fat: number,
-  carbs: number,
-  protein: number,
-): Data {
-  return {
-    id,
-    name,
-    calories,
-    fat,
-    carbs,
-    protein,
-  };
-}
 
 const rows = [
-  createData(1, 'Cupcake', 305, 3.7, 67, 4.3),
-  createData(2, 'Donut', 452, 25.0, 51, 4.9),
-  createData(3, 'Eclair', 262, 16.0, 24, 6.0),
-  createData(4, 'Frozen yoghurt', 159, 6.0, 24, 4.0),
-  createData(5, 'Gingerbread', 356, 16.0, 49, 3.9),
-  createData(6, 'Honeycomb', 408, 3.2, 87, 6.5),
-  createData(7, 'Ice cream sandwich', 237, 9.0, 37, 4.3),
-  createData(8, 'Jelly Bean', 375, 0.0, 94, 0.0),
-  createData(9, 'KitKat', 518, 26.0, 65, 7.0),
-  createData(10, 'Lollipop', 392, 0.2, 98, 0.0),
-  createData(11, 'Marshmallow', 318, 0, 81, 2.0),
-  createData(12, 'Nougat', 360, 19.0, 9, 37.0),
-  createData(13, 'Oreo', 437, 18.0, 63, 4.0),
+  {
+    name: 'Adi',
+    position: 'Manager'
+  },
+  {
+    name: 'Budi',
+    position: 'Manager'
+  },
+  {
+    name: 'Coki',
+    position: 'Manager'
+  },
 ];
 
 function descendingComparator<T>(a: T, b: T, orderBy: keyof T) {
@@ -95,29 +74,12 @@ const headCells: readonly HeadCell[] = [
     label: 'Name',
   },
   {
-    id: 'calories',
+    id: 'position',
     numeric: true,
     disablePadding: false,
     label: 'Position',
   },
-  {
-    id: 'fat',
-    numeric: true,
-    disablePadding: false,
-    label: 'Fat (g)',
-  },
-  {
-    id: 'carbs',
-    numeric: true,
-    disablePadding: false,
-    label: 'Carbs (g)',
-  },
-  {
-    id: 'protein',
-    numeric: true,
-    disablePadding: false,
-    label: 'Protein (g)',
-  },
+ 
 ];
 
 interface EnhancedTableProps {
@@ -171,10 +133,12 @@ function EnhancedTableHead(props: EnhancedTableProps) {
 
 export default function TableMember() {
   const [order, setOrder] = React.useState<Order>('asc');
-  const [orderBy, setOrderBy] = React.useState<keyof Data>('calories');
+  const [orderBy, setOrderBy] = React.useState<keyof Data>('name');
   const [selected, setSelected] = React.useState<readonly number[]>([]);
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
+
+  const navigate = useNavigate();
 
   const handleRequestSort = (
     event: React.MouseEvent<unknown>,
@@ -186,16 +150,12 @@ export default function TableMember() {
   };
 
   const handleSelectAllClick = (event: React.ChangeEvent<HTMLInputElement>) => {
-    if (event.target.checked) {
-      const newSelected = rows.map((n) => n.id);
-      setSelected(newSelected);
-      return;
-    }
-    setSelected([]);
+    
   };
 
-  const handleClick = (event: React.MouseEvent<unknown>, id: number) => {
+  const handleClick = (event: React.MouseEvent<unknown>) => {
     //TODO: logic for see detail here
+    navigate("/member/123")
   };
 
   const handleChangePage = (event: unknown, newPage: number) => {
@@ -226,7 +186,7 @@ export default function TableMember() {
       <Paper sx={{ width: '100%', mb: 2 }}>
         <TableContainer>
           <Table
-            sx={{ minWidth: 750 }}
+            sx={{ minWidth: 450 }}
             aria-labelledby="tableTitle"
             size={ 'medium'}
           >
@@ -240,18 +200,18 @@ export default function TableMember() {
             />
             <TableBody>
               {visibleRows.map((row, index) => {
-                const isItemSelected = selected.includes(row.id);
+                // const isItemSelected = selected.includes(row.id);
                 const labelId = `enhanced-table-checkbox-${index}`;
 
                 return (
                   <TableRow
                     hover
-                    onClick={(event) => handleClick(event, row.id)}
+                    onClick={(event) => handleClick(event)}
                     role="checkbox"
-                    aria-checked={isItemSelected}
+                    // aria-checked={isItemSelected}
                     tabIndex={-1}
-                    key={row.id}
-                    selected={isItemSelected}
+                    key={row.name}
+                    // selected={isItemSelected}
                     sx={{ cursor: 'pointer' }}
                   >
                     <TableCell padding="checkbox">
@@ -264,10 +224,7 @@ export default function TableMember() {
                     >
                       {row.name}
                     </TableCell>
-                    <TableCell align="right">{row.calories}</TableCell>
-                    <TableCell align="right">{row.fat}</TableCell>
-                    <TableCell align="right">{row.carbs}</TableCell>
-                    <TableCell align="right">{row.protein}</TableCell>
+                    <TableCell align="right">Test</TableCell>
                   </TableRow>
                 );
               })}
