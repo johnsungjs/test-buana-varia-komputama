@@ -19,21 +19,6 @@ interface Data {
   position: string;
 }
 
-// const rows = [
-//   {
-//     name: "Adi",
-//     position: "Manager",
-//   },
-//   {
-//     name: "Budi",
-//     position: "Manager",
-//   },
-//   {
-//     name: "Coki",
-//     position: "Manager",
-//   },
-// ];
-
 function descendingComparator<T>(a: T, b: T, orderBy: keyof T) {
   if (b[orderBy] < a[orderBy]) {
     return -1;
