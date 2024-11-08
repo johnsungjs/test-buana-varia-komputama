@@ -1,6 +1,7 @@
 import { Paper } from "@mui/material";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { alertSuccess } from "../utils/customAlert";
 
 export default function AddMemberPage() {
   const navigation = useNavigate();
@@ -40,7 +41,7 @@ export default function AddMemberPage() {
       <div className="pt-4">
         <button
           className="bg-primary px-4 py-1 rounded-md text-white"
-          onClick={() => navigation("/member/add")}
+          onClick={() => alertSuccess("New Member Has Been Succesfully Requested!")}
         >
           Submit Form
         </button>

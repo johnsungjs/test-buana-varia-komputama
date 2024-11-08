@@ -9,7 +9,7 @@ const dataDummy = [
   },
   {
     name: "Budi",
-    position: "Manager",
+    position: "Assistant Manager",
   },
   {
     name: "Coki",
@@ -17,7 +17,7 @@ const dataDummy = [
   },
   {
     name: "Dimas",
-    position: "Manager",
+    position: "Staff",
   },
   {
     name: "Entok",
@@ -25,7 +25,7 @@ const dataDummy = [
   },
   {
     name: "Frans",
-    position: "Manager",
+    position: "Staff",
   },
 ];
 
